@@ -46,7 +46,6 @@ int main(int argc, char *argv[]) {
 
 	if (token != NULL){ // on recupere la première variable et on la stocke
 		if (sscanf(token, "%d", &numT) !=1){
-			fprintf(stderr, "erreur de lecture de numero trajet \n");
 			continue;
 		}
 
@@ -69,9 +68,7 @@ int main(int argc, char *argv[]) {
 					strncpy (villeA, token, sizeof(villeA)-1);
 					villeA[sizeof(villeA)-1] = '\0';
 
-					// on ne récupere pas les deux dernières colones car elles ne sont pas nécéssaire pour ce traitement
-
-					
+					// on ne récupere pas les deux dernières colones car elles ne sont pas nécéssaire pour ce traitement					
 
 
 //printf("Longueur de villeD : %zu\n", strlen(villeD));
