@@ -1,0 +1,16 @@
+#/bin/bash 
+
+Bienvenue dans le Projet Cy-Trucks de Franco Alice et Thibeaudau Kevin :)
+
+voici les différents traitements que vous pouvez effectuer :
+
+tapez: ./projet.sh -(traitement de votre choix) data.csv 
+
+    Traitement de base pour afficher les graphiques: 
+		-h pour relire ces indications
+		-d1 Les 10 conducteurs avec le plus de trajet
+                -d2 Les 10 conducteurs qui ont fait les plus longs trajets
+		-l Les 10 trajets les plus longs
+                -t Les 10 villes les plus traversées
+		-s Statistiques sur les étapes (distances minimales, maximales et moyennes des étapes)
+              
