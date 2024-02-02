@@ -60,7 +60,7 @@ Noeud* insertion(Noeud* noeud, char* ville, int numT, char da, int numE) { // j'
             i++;
         }
 
-        noeud->nboccu++; // j'augmente le nombre d'occurence totale
+
         if (da == 'D' && numE == 1) { // si ma ville est ville de depart et que je suis a ma premiere étape ( et donc que c'est un nouveau numéro de trajet )j'augmente le compteur de départ
             noeud->compteur_depart++;
             int* temp = realloc(noeud->tab, (noeud->nboccu + 2) * sizeof(int)); // je réalloue de l'espace
