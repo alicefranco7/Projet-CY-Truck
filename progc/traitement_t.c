@@ -3,25 +3,26 @@
 
 Noeud* nouveauNoeud(char* nv, int numT, char da, int numE) { // creer un nouveau noeud
    Noeud* noeud = (Noeud*)malloc(sizeof(Noeud));
-    if (noeud == NULL) { // si erreur d'allocation je sors
+   
+    if (noeud == NULL) {
         fprintf(stderr, "Erreur d'allocation pour le nouveau nœud.\n");
         exit(EXIT_FAILURE);
     }
 
-    // Vérifier si ma ville est non NULL avant d'allouer et copier
-    	if (nv != NULL) {
-        	noeud->ville = strdup(nv);
-        	if (noeud->ville == NULL) { // si erreur d'allocation je sors
-            		fprintf(stderr, "Erreur d'allocation pour la ville du nouveau nœud.\n");
-            		free(noeud);
-        	  	exit(EXIT_FAILURE);
-        	}
-    	}
+    // Allocation et copie sécurisée de la chaîne de caractères "ville"
+    if (nv != NULL) {
+        noeud->ville = strdup(nv);
+        if (noeud->ville == NULL) {
+            fprintf(stderr, "Erreur d'allocation pour la ville du nouveau nœud.\n");
+            free(noeud);
+            exit(EXIT_FAILURE);
+        }
+    }
         noeud->numT = numT;
-        noeud->tab = malloc(sizeof(int)); // Initialiser à NULL, l'allocation se fait dans insertion
+        noeud->tab =malloc(sizeof(int)); // Initialiser à NULL, l'allocation se fait dans insertion
 	if(noeud->tab!=NULL){
 		noeud->tab[0] = numT; // je mets mon numero de trajet dans mon tableau qui stocke ces numeros de trajets
-		noeud->tab[1]= 0;
+		//noeud->tab[1]= 0;
 	}else{// sinon je sors (exit)
   	    fprintf(stderr, "Erreur d'allocation pour le tableau du nouveau nœud.\n");
             free(noeud->ville);
@@ -30,12 +31,15 @@ Noeud* nouveauNoeud(char* nv, int numT, char da, int numE) { // creer un nouveau
 	}
 	if ( da == 'D' && numE==1){ // si ma ville est ville de depart et que je suis a la premiere etape de mon trajet
 		noeud->compteur_depart=1; // alors j'augmente mon compteur de depart
+	}else{
+		noeud->compteur_depart=0;
 	}
         noeud->gauche = NULL;
         noeud->droite = NULL;
         noeud->nboccu = 1; // compte combien de fois une ville a été traversée
         noeud->hauteur = 1;
 	noeud->numE = numE;
+	
 
     return noeud;
 }
@@ -59,19 +63,20 @@ Noeud* insertion(Noeud* noeud, char* ville, int numT, char da, int numE) { // j'
             }
             i++;
         }
-
-
+ // j'augmente le nombre d'occurence totale
         if (da == 'D' && numE == 1) { // si ma ville est ville de depart et que je suis a ma premiere étape ( et donc que c'est un nouveau numéro de trajet )j'augmente le compteur de départ
             noeud->compteur_depart++;
-            int* temp = realloc(noeud->tab, (noeud->nboccu + 2) * sizeof(int)); // je réalloue de l'espace
-            if (temp != NULL) {
+             // je réalloue de l'espace
+           } 
+int* temp = realloc(noeud->tab, (noeud->nboccu + 1) * sizeof(int));if (temp != NULL) {
                 noeud->tab = temp;
-   		noeud->tab[noeud->nboccu ] = numT; // je mets mon nouveau numero de trajet dans mon tabl
+   		noeud->tab[noeud->nboccu  -1 ] = numT;
+		noeud->nboccu++; // je mets mon nouveau numero de trajet dans mon tabl
             } else { // si erreur d'allocation je sors
                 fprintf(stderr, "Erreur au moment de la réallocation\n");
                 exit(1);
             }
-        }
+        
 
     } else {
         return noeud;
